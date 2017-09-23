@@ -1,5 +1,8 @@
-import processing.sound.*;
-SoundFile music, zap, hiss, gameover;
+import ddf.minim.*;
+AudioPlayer music, zap, hiss, gameover;
+Minim minim;
+//import processing.sound.*;
+//SoundFile music, zap, hiss, gameover;
 
 void setup()
 {
@@ -11,12 +14,16 @@ void setup()
   GameMenu = true;
   BugAlive = false;
   PlayerAlive = false;
-  music = new SoundFile(this, "Creo_Sphere.mp3");
-  zap = new SoundFile(this, "Zap.mp3");
-  hiss = new SoundFile(this, "Hiss.wav");
-  gameover = new SoundFile(this, "GameOver.wav");
-  music.loop();
-  
+  //music = new SoundFile(this, "Creo_Sphere.mp3");
+  minim = new Minim(this);
+  music = minim.loadFile("Creo_Sphere.mp3");
+  //zap = new SoundFile(this, "Zap.mp3");
+  zap = minim.loadFile("Zap.mp3");
+  //hiss = new SoundFile(this, "Hiss.wav");
+  hiss = minim.loadFile("Hiss.mp3");
+  //gameover = new SoundFile(this, "GameOver.wav");
+  gameover = minim.loadFile("GameOver.mp3");
+  music.loop(); 
 }
 
 boolean BugAlive;
@@ -131,7 +138,6 @@ void MovePlayer()
       if(keyCode == UP)
       {
         DrawLaser();
-        zap.play();
         CheckCollision();
       }
     }
@@ -193,6 +199,7 @@ void MoveBug()
       GameOver = true;
       BugAlive = false;
       PlayerAlive = false;
+      gameover.rewind();
       gameover.play();
       println("BugY: " + BugY + "  PlayerY: " + PlayerY);
       println("Game Over");
@@ -256,6 +263,8 @@ void DrawBug()
 
 void DrawLaser()
 {
+  zap.rewind();
+  zap.play();
   stroke(255);
   line(PlayerX + 15, PlayerY - 15, PlayerX + 15, 0);
   println("LASER");
@@ -268,6 +277,7 @@ void CheckCollision()
   
   if(CollisionRange <= BugSize)
   {
+    hiss.rewind();
     hiss.play();
     BugAlive = false;
     Score++;
