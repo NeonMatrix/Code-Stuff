@@ -1,6 +1,7 @@
 void setup()
 {
-  size(500,500);
+  //size(500,500);
+  fullScreen();
   background(0);
   stroke(255);
   strokeWeight(.25);
@@ -19,11 +20,12 @@ PImage img;
 void draw()
 {
   setGradient(0, 0, width, height, blue, pink, Y_AXIS);
-  //image(img, width/4, height/2);
-  //image(img, width - width/4, height/2);
+  imageMode(CORNERS);
+  image(img, width/4, height/2 - 100 , width/4 + 100, height/2 + 8);
+  image(img, width - width/4, height/2 - 100, (width - width/4) - 100, height/2 + 8);
   stroke(255);
   int i;
-  for (i= 0; i<51; i++)
+  for (i= 0; i< width/10; i++)
   {
     line(width/2,height/2,i*10,height);
   }
