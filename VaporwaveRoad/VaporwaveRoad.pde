@@ -2,8 +2,8 @@ void setup()
 {
   size(1000,1000);
   //fullScreen();
-  //background(0);
-  setGradient(0, 0, width, height, blue, pink, Y_AXIS);
+  background(0);
+  //setGradient(0, 0, width, height, blue, pink, Y_AXIS);
   stroke(255);
   strokeWeight(.25);
   pink = color(255, 112, 193);
@@ -58,7 +58,8 @@ void drawRoad()
   while(i<height)
   {
     line(0,i,width,i);
-    i = i + int(y);
+    //i = i + int(y);
+    i = i + (int)y;
     y = y * 1.25 + roadMove;
     //y = y * 1.25;
   }
